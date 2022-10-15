@@ -43,7 +43,6 @@ public class ClienteListado extends javax.swing.JFrame {
         btnEliminarCliente = new javax.swing.JMenuItem();
         btnCargar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        btnAgregarCuenta = new javax.swing.JMenuItem();
         btnVerCuentas = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
@@ -123,14 +122,6 @@ public class ClienteListado extends javax.swing.JFrame {
 
         jMenu2.setText("Cuenta");
 
-        btnAgregarCuenta.setText("Agregar cuenta");
-        btnAgregarCuenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarCuentaActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnAgregarCuenta);
-
         btnVerCuentas.setText("Ver cuentas");
         btnVerCuentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,12 +194,12 @@ public class ClienteListado extends javax.swing.JFrame {
         cargar();
     }//GEN-LAST:event_btnCargarActionPerformed
 
-    private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAgregarCuentaActionPerformed
-
     private void btnVerCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCuentasActionPerformed
         // TODO add your handling code here:
+        int renglon = tblClientes.getSelectedRow();
+        String id = tblClientes.getModel().getValueAt(renglon, 0).toString();
+        CuentaListado cu = new CuentaListado(this, true, Integer.parseInt(id));
+        cu.setVisible(true);
 
     }//GEN-LAST:event_btnVerCuentasActionPerformed
 
@@ -263,7 +254,6 @@ public class ClienteListado extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAgregarCliente;
-    private javax.swing.JMenuItem btnAgregarCuenta;
     private javax.swing.JMenuItem btnCargar;
     private javax.swing.JMenuItem btnEditarCliente;
     private javax.swing.JMenuItem btnEliminarCliente;

@@ -53,14 +53,6 @@
             <Property name="text" type="java.lang.String" value="Cuenta"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="btnAgregarCuenta">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar cuenta"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarCuentaActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnVerCuentas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ver cuentas"/>

@@ -41,7 +41,8 @@ public class CuentaDAO {
                 cl.setId(resultSet.getInt(3));
                 cl.setNombre(resultSet.getString(4));
                 cl.setEmail(resultSet.getString(5));
-            
+                c.setCliente(cl);
+                cuentas.add(c);
             }
                 conexion.close();
         } catch (Exception e) {

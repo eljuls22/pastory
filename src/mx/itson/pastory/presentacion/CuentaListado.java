@@ -5,8 +5,10 @@
 package mx.itson.pastory.presentacion;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.itson.pastory.entidades.Cuenta;
+import mx.itson.pastory.persistencia.ClienteDAO;
 import mx.itson.pastory.persistencia.CuentaDAO;
 
 /**
@@ -88,6 +90,11 @@ public class CuentaListado extends javax.swing.JDialog {
         jMenu1.setText("Opciones");
 
         btnAgregar.setText("Agregar cuenta");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
         jMenu1.add(btnAgregar);
 
         btnEliminar.setText("Eliminar cuenta");
@@ -125,7 +132,7 @@ public class CuentaListado extends javax.swing.JDialog {
         public void cargar() {
         DefaultTableModel modelo = (DefaultTableModel) tblCuenta.getModel();
         modelo.setRowCount(0);
-        List<Cuenta> cuentas = CuentaDAO.obtenerPorId(1);
+        List<Cuenta> cuentas = CuentaDAO.obtenerPorId(this.id);
         for (Cuenta c : cuentas) {
             modelo.addRow(new Object[]{
                 c.getId(),
@@ -138,13 +145,33 @@ public class CuentaListado extends javax.swing.JDialog {
     }
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
       
-        
+              DefaultTableModel modelo = (DefaultTableModel) tblCuenta.getModel();
+        int id = Integer.parseInt(String.valueOf(modelo.getValueAt(tblCuenta.getSelectedRow(), 0)));
+        int confirmar = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar este registro?", "Confirmar eliminacion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (confirmar == 0) {
+            CuentaDAO.Eliminar(id);
+            cargar();
+        } else {
+            cargar();
+        }  
         
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         cargar();
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        ClienteListado ag = new ClienteListado();
+        CuentaForm agregar = new CuentaForm(ag, true);
+        agregar.setVisible(true);
+        
+        
+        cargar();
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
      * @param args the command line arguments
