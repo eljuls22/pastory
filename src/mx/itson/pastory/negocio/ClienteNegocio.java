@@ -12,11 +12,20 @@ import mx.itson.pastory.persistencia.ClienteDAO;
  */
 public class ClienteNegocio {
 
-    public static boolean guardar(String nombre, String direccion, String telefono, String email) {
+    public static boolean guardar(String nombre, String direccion, String telefono, String email, int id) {
         boolean resultado = false;
+
         try {
+
             if (!ClienteDAO.comprobarEmail(email)) {
-                resultado = ClienteDAO.guardar(nombre, direccion, telefono, email);
+
+                if (id != 0) {
+
+                    resultado = ClienteDAO.editar(nombre, direccion, telefono, email, id);
+
+                } else {
+                    resultado = ClienteDAO.guardar(nombre, direccion, telefono, email);
+                }
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());

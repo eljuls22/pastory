@@ -41,6 +41,7 @@ public class ClienteListado extends javax.swing.JFrame {
         btnAgregarCliente = new javax.swing.JMenuItem();
         btnEditarCliente = new javax.swing.JMenuItem();
         btnEliminarCliente = new javax.swing.JMenuItem();
+        btnCargar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnAgregarCuenta = new javax.swing.JMenuItem();
         btnVerCuentas = new javax.swing.JMenuItem();
@@ -110,11 +111,24 @@ public class ClienteListado extends javax.swing.JFrame {
         });
         jMenu1.add(btnEliminarCliente);
 
+        btnCargar.setText("Cargar ");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnCargar);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Cuenta");
 
         btnAgregarCuenta.setText("Agregar cuenta");
+        btnAgregarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCuentaActionPerformed(evt);
+            }
+        });
         jMenu2.add(btnAgregarCuenta);
 
         btnVerCuentas.setText("Ver cuentas");
@@ -132,9 +146,7 @@ public class ClienteListado extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
         );
 
         pack();
@@ -165,20 +177,26 @@ public class ClienteListado extends javax.swing.JFrame {
         // TODO add your handling code here:
         ClienteForm agregar = new ClienteForm(0);
         agregar.setVisible(true);
-
-        cargar();
+      
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
 
     private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
         // TODO add your handling code here:
-        int renglon = tblClientes.getSelectedRow();
+       int renglon = tblClientes.getSelectedRow();
        String id = tblClientes.getModel().getValueAt(renglon, 0).toString();
        ClienteForm f = new ClienteForm(Integer.parseInt(id));
-       
        f.setVisible(true);
-        cargar();
        
     }//GEN-LAST:event_btnEditarClienteActionPerformed
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+        cargar();
+    }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarCuentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,6 +250,7 @@ public class ClienteListado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAgregarCliente;
     private javax.swing.JMenuItem btnAgregarCuenta;
+    private javax.swing.JMenuItem btnCargar;
     private javax.swing.JMenuItem btnEditarCliente;
     private javax.swing.JMenuItem btnEliminarCliente;
     private javax.swing.JMenuItem btnVerCuentas;

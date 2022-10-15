@@ -114,12 +114,20 @@ public class ClienteDAO {
     public static Cliente obtenerPorId(int id) {
         Cliente cliente = new Cliente();
         try {
-          Connection conexion = Conexion.obtener();
+            Connection conexion = Conexion.obtener();
             String query = "SELECT id, nombre, direccion, telefono, email FROM cliente WHERE id = ?";
             PreparedStatement statement = conexion.prepareStatement(query);
             statement.setInt(1, id);
-
             ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {                
+                cliente.setId(resultSet.getInt(1));
+                cliente.setNombre(resultSet.getString(2));
+                cliente.setDireccion(resultSet.getString(3));
+                cliente.setTelefono(resultSet.getString(4));
+                cliente.setEmail(resultSet.getString(5));
+            }
+                conexion.close();
         } catch (Exception e) {
             System.out.println("Ocurrio un error: " + e.getMessage());
         }

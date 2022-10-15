@@ -18,7 +18,7 @@ public class Conexion {
         
         try {
             
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pastordb?user=root&password=root");  
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pastordb?user=root&password=admin");  
         } catch (Exception e) {
             System.out.println("Error a la conexion: " + e );
         }

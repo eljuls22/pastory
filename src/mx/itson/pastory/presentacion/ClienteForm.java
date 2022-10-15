@@ -137,7 +137,7 @@ public class ClienteForm extends javax.swing.JFrame {
         String telefono = txtTelefono.getText();
         String email = txtEmail.getText();
 
-        if (ClienteNegocio.guardar(nombre, direccion, telefono, email)) {
+        if (ClienteNegocio.guardar(nombre, direccion, telefono, email, this.id)) {
             JOptionPane.showMessageDialog(this, "El registro se guardo correctamente", "Registro guardado", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
