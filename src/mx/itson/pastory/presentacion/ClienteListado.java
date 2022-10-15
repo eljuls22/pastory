@@ -21,6 +21,7 @@ public class ClienteListado extends javax.swing.JFrame {
      */
     public ClienteListado() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

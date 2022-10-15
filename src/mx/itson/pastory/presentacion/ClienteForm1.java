@@ -1,32 +1,40 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package mx.itson.pastory.presentacion;
 
-import javax.swing.JOptionPane;
 import mx.itson.pastory.entidades.Cliente;
-import mx.itson.pastory.negocio.ClienteNegocio;
 import mx.itson.pastory.persistencia.ClienteDAO;
 
 /**
  *
- * @author julio
+ * @author PC
  */
-public class ClienteForm extends javax.swing.JFrame {
+public class ClienteForm1 extends javax.swing.JDialog {
 
     /**
-     * Creates new form ClienteForm
+     * Creates new form ClienteForm1
      */
     int id = 0;
-
-    public ClienteForm(int id) {
+    public ClienteForm1(java.awt.Frame parent, boolean modal,int id) {
+        super(parent, modal);
         initComponents();
+        
         this.id = id;
         cargarForm();
-        this.setLocationRelativeTo(null);
     }
 
+    public void cargarForm(){
+        if(this.id != 0){
+            Cliente c = ClienteDAO.obtenerPorId(this.id);
+            txtNombre.setText(c.getNombre());
+            txtDireccion.setText(c.getDireccion());
+            txtTelefono.setText(c.getTelefono());
+            txtEmail.setText(c.getEmail());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,40 +44,32 @@ public class ClienteForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtTelefono = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        btnGuardar1 = new javax.swing.JButton();
         txtEmail = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
+
+        btnGuardar1.setText("Guardar");
+        btnGuardar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardar1ActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Nombre:");
-
-        jLabel2.setText("Direccion");
-
-        jLabel3.setText("Telefono");
 
         jLabel4.setText("Email");
 
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
+        jLabel3.setText("Telefono");
+
+        jLabel2.setText("Direccion");
+
+        jLabel1.setText("Nombre:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,7 +91,7 @@ public class ClienteForm extends javax.swing.JFrame {
                     .addComponent(txtEmail)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 316, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)))
+                        .addComponent(btnGuardar1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -113,45 +113,17 @@ public class ClienteForm extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(btnGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(btnGuardar1)
                 .addGap(14, 14, 14))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void cargarForm(){
-        if(this.id != 0){
-            Cliente c = ClienteDAO.obtenerPorId(this.id);
-            txtNombre.setText(c.getNombre());
-            txtDireccion.setText(c.getDireccion());
-            txtTelefono.setText(c.getTelefono());
-            txtEmail.setText(c.getEmail());
-        }
-    }
-    
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String nombre = txtNombre.getText();
-        String direccion = txtDireccion.getText();
-        String telefono = txtTelefono.getText();
-        String email = txtEmail.getText();
+    private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
 
-        if (ClienteNegocio.guardar(nombre, direccion, telefono, email)) {
-            JOptionPane.showMessageDialog(this, "El registro se guardo correctamente", "Registro guardado", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "No es posible guardar el cliente. Ya existe el correo registrado", "Registro no guardado", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowOpened
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_btnGuardar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,26 +142,34 @@ public class ClienteForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClienteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteForm1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClienteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteForm1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClienteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteForm1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClienteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteForm1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClienteForm(0).setVisible(true);
+                ClienteForm1 dialog = new ClienteForm1(new javax.swing.JFrame(), true, 0);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnGuardar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
