@@ -132,6 +132,11 @@ public class ClienteListado extends javax.swing.JFrame {
         jMenu2.add(btnAgregarCuenta);
 
         btnVerCuentas.setText("Ver cuentas");
+        btnVerCuentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerCuentasActionPerformed(evt);
+            }
+        });
         jMenu2.add(btnVerCuentas);
 
         jMenuBar1.add(jMenu2);
@@ -168,25 +173,26 @@ public class ClienteListado extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-       
+
         cargar();
-       
+
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
         // TODO add your handling code here:
-        ClienteForm agregar = new ClienteForm(0);
+        ClienteForm agregar = new ClienteForm(this, true, 0);
+
         agregar.setVisible(true);
-      
+
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
 
     private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
         // TODO add your handling code here:
-       int renglon = tblClientes.getSelectedRow();
-       String id = tblClientes.getModel().getValueAt(renglon, 0).toString();
-       ClienteForm f = new ClienteForm(Integer.parseInt(id));
-       f.setVisible(true);
-       
+        int renglon = tblClientes.getSelectedRow();
+        String id = tblClientes.getModel().getValueAt(renglon, 0).toString();
+        ClienteForm f = new ClienteForm(this, true, Integer.parseInt(id));
+        f.setVisible(true);
+
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
@@ -197,6 +203,11 @@ public class ClienteListado extends javax.swing.JFrame {
     private void btnAgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarCuentaActionPerformed
+
+    private void btnVerCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCuentasActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnVerCuentasActionPerformed
 
     /**
      * @param args the command line arguments
