@@ -18,6 +18,37 @@ import mx.itson.pastory.entidades.Cuenta;
  * @author julio
  */
 public class CuentaDAO {
+    
+    
+    public static List<Cuenta> obtenerPorId(int id) {
+        List<Cuenta> cuentas = new ArrayList<>();
+        
+        try {
+            Connection conexion = Conexion.obtener();
+            String query = "SELECT cu.id as cuentaid, cu.numero, cl.id as clienteid, cl.nombre, cl.email FROM cuenta cu INNER JOIN cliente cl ON cu.idCliente = cl.id where cl.id = ?";
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            
+            
+            while (resultSet.next()) {     
+                
+                Cuenta c = new Cuenta();
+                c.setId(resultSet.getInt(1));
+                c.setNumero(resultSet.getString(2));
+                
+                Cliente cl = new Cliente();
+                cl.setId(resultSet.getInt(3));
+                cl.setNombre(resultSet.getString(4));
+                cl.setEmail(resultSet.getString(5));
+            
+            }
+                conexion.close();
+        } catch (Exception e) {
+            System.out.println("Ocurrio un error: " + e.getMessage());
+        }
+        return cuentas;
+    }
 
     public static List<Cuenta> obtenerTodo() {
 

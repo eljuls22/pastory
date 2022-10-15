@@ -1,20 +1,31 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package mx.itson.pastory.presentacion;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import mx.itson.pastory.entidades.Cuenta;
+import mx.itson.pastory.persistencia.CuentaDAO;
+
 /**
  *
- * @author julio
+ * @author AbelEsquer
  */
-public class CuentaListado extends javax.swing.JFrame {
+public class CuentaListado extends javax.swing.JDialog {
 
     /**
-     * Creates new form CuentaListado
+     * Creates new form CuentaListado1
      */
-    public CuentaListado() {
+    int id = 0;
+    public CuentaListado(java.awt.Frame parent, boolean modal, int id) {
+        super(parent, modal);
+        this.id = id;
         initComponents();
+        
+        this.setLocationRelativeTo(null);
+    
     }
 
     /**
@@ -28,25 +39,36 @@ public class CuentaListado extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCuenta = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        btnAgregar = new javax.swing.JMenuItem();
+        btnEliminar = new javax.swing.JMenuItem();
+        mnds = new javax.swing.JMenu();
+        btnVerMovimientos = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         tblCuenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "No. Cuenta", "idCliente", "Cliente", "Direccion", "Telefono", "Email"
+                "idCuenta", "idCliente", "No. Cuenta", "Cliente", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -61,22 +83,68 @@ public class CuentaListado extends javax.swing.JFrame {
         tblCuenta.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblCuenta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblCuenta);
+        tblCuenta.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+        jMenu1.setText("Opciones");
+
+        btnAgregar.setText("Agregar cuenta");
+        jMenu1.add(btnAgregar);
+
+        btnEliminar.setText("Eliminar cuenta");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnEliminar);
+
+        jMenuBar1.add(jMenu1);
+
+        mnds.setText("Movimientos");
+
+        btnVerMovimientos.setText("Ver Movimientos");
+        mnds.add(btnVerMovimientos);
+
+        jMenuBar1.add(mnds);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+        public void cargar() {
+        DefaultTableModel modelo = (DefaultTableModel) tblCuenta.getModel();
+        modelo.setRowCount(0);
+        List<Cuenta> cuentas = CuentaDAO.obtenerPorId(1);
+        for (Cuenta c : cuentas) {
+            modelo.addRow(new Object[]{
+                c.getId(),
+                c.getCliente().getId(),
+                c.getNumero(),
+                c.getCliente().getNombre(),
+                c.getCliente().getEmail()
+            });
+        }
+    }
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+      
+        
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        cargar();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -104,17 +172,31 @@ public class CuentaListado extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CuentaListado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CuentaListado().setVisible(true);
+                CuentaListado dialog = new CuentaListado(new javax.swing.JFrame(), true, 0);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnAgregar;
+    private javax.swing.JMenuItem btnEliminar;
+    private javax.swing.JMenuItem btnVerMovimientos;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu mnds;
     private javax.swing.JTable tblCuenta;
     // End of variables declaration//GEN-END:variables
 }
