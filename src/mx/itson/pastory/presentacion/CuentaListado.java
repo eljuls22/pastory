@@ -110,6 +110,11 @@ public class CuentaListado extends javax.swing.JDialog {
         mnds.setText("Movimientos");
 
         btnVerMovimientos.setText("Ver Movimientos");
+        btnVerMovimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerMovimientosActionPerformed(evt);
+            }
+        });
         mnds.add(btnVerMovimientos);
 
         jMenuBar1.add(mnds);
@@ -172,6 +177,13 @@ public class CuentaListado extends javax.swing.JDialog {
         cargar();
         
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnVerMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMovimientosActionPerformed
+        int renglon = tblCuenta.getSelectedRow();
+        String id = tblCuenta.getModel().getValueAt(renglon, 0).toString();
+        MovimientoListado mo = new MovimientoListado(new javax.swing.JFrame(), true, Integer.parseInt(id));
+        mo.setVisible(true);
+    }//GEN-LAST:event_btnVerMovimientosActionPerformed
 
     /**
      * @param args the command line arguments
